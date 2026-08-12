@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: Почему деньги не задерживаются — Катрин Андреева</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #faf0ff;
+  min-height: 100vh;
+  padding: 20px 16px 40px;
+  color: #1a1a2e;
+}
+.container { max-width: 480px; margin: 0 auto; }
+
+.header { text-align: center; margin-bottom: 28px; }
+.header-name { font-size: 12px; letter-spacing: 3px; color: #9333ea; margin-bottom: 8px; }
+.header-title { font-size: 24px; font-weight: 600; color: #3b0764; line-height: 1.3; margin-bottom: 8px; }
+.header-sub { font-size: 14px; color: #7c3aed; }
+
+.progress-wrap { margin-bottom: 20px; }
+.progress-top { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.progress-label { font-size: 13px; color: #7c3aed; }
+.progress-bar-bg { height: 4px; background: #e9d5ff; border-radius: 2px; }
+.progress-bar { height: 4px; background: #9333ea; border-radius: 2px; width: 10%; transition: width .3s; }
+
+.question-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e9d5ff;
+  padding: 24px 20px;
+  margin-bottom: 12px;
+}
+.question-text { font-size: 16px; color: #1a1a2e; line-height: 1.6; margin-bottom: 20px; font-weight: 500; }
+
+.option-btn {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e9d5ff;
+  background: #faf0ff;
+  font-size: 14px;
+  color: #3b0764;
+  cursor: pointer;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  transition: all .15s;
+  display: block;
+}
+.option-btn:hover { background: #f3e8ff; border-color: #9333ea; }
+.option-btn:last-child { margin-bottom: 0; }
+
+.result { display: none; }
+.result-header { border-radius: 16px; padding: 24px 20px; margin-bottom: 16px; }
+.result-label { font-size: 11px; letter-spacing: 2px; margin-bottom: 8px; font-weight: 600; }
+.result-title { font-size: 22px; font-weight: 600; margin-bottom: 10px; color: #1a1a2e; }
+.result-sub { font-size: 14px; line-height: 1.7; color: #3b0764; }
+
+.scores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.score-card { background: #fff; border-radius: 12px; border: 1px solid #e9d5ff; padding: 14px 12px; text-align: center; }
+.score-label { font-size: 11px; color: #7c3aed; margin-bottom: 4px; }
+.score-value { font-size: 22px; font-weight: 600; color: #3b0764; }
+
+.info-card { background: #fff; border-radius: 16px; border: 1px solid #e9d5ff; padding: 20px; margin-bottom: 12px; }
+.info-title { font-size: 14px; font-weight: 600; color: #3b0764; margin-bottom: 12px; }
+.info-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.info-item:last-child { margin-bottom: 0; }
+.info-dot { width: 6px; height: 6px; border-radius: 50%; background: #9333ea; flex-shrink: 0; margin-top: 7px; }
+.info-text { font-size: 14px; color: #4c1d95; line-height: 1.5; }
+
+.actions-card { background: #f3e8ff; border-radius: 16px; border: 1px solid #d8b4fe; padding: 20px; margin-bottom: 12px; }
+.action-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.action-item:last-child { margin-bottom: 0; }
+.action-num { font-size: 13px; font-weight: 600; color: #7c3aed; min-width: 20px; }
+.action-text { font-size: 14px; color: #3b0764; line-height: 1.5; }
+
+.cta-card { background: #3b0764; border-radius: 16px; padding: 24px 20px; margin-bottom: 16px; text-align: center; }
+.cta-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.cta-role { font-size: 13px; color: #d8b4fe; margin-bottom: 12px; }
+.cta-text { font-size: 14px; color: #e9d5ff; line-height: 1.6; margin-bottom: 16px; }
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #9333ea;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+}
+.cta-btn:hover { background: #7c3aed; }
+
+.restart-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: #9333ea;
+  border: 1px solid #d8b4fe;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.share-hint { text-align: center; font-size: 13px; color: #9333ea; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-name">КАТРИН АНДРЕЕВА</div>
+    <div class="header-title">Почему деньги не задерживаются?</div>
+    <div class="header-sub">10 вопросов · 3 минуты · честный результат</div>
+  </div>
+
+  <div id="quiz">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label">Вопрос <span id="q-num">1</span> из 10</span>
+        <span class="progress-label" id="q-cat"></span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="question-text" id="question-text"></div>
+      <div id="options"></div>
+    </div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-header" id="result-header">
+      <div class="result-label" id="result-label"></div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-sub" id="result-sub"></div>
+    </div>
+
+    <div class="scores">
+      <div class="score-card">
+        <div class="score-label">Мышление</div>
+        <div class="score-value" id="score-mind"></div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Действия</div>
+        <div class="score-value" id="score-action"></div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Страхи</div>
+        <div class="score-value" id="score-fear"></div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-title">Где именно блок</div>
+      <div id="blocks-list"></div>
+    </div>
+
+    <div class="actions-card">
+      <div class="info-title" style="color:#7c3aed;">Три шага прямо сейчас</div>
+      <div id="actions-list"></div>
+    </div>
+
+    <div class="cta-card">
+      <div class="cta-name">Катрин Андреева</div>
+      <div class="cta-role">Тренер по эмоциональной устойчивости и границам</div>
+      <div class="cta-text">Денежные блоки почти всегда связаны с самооценкой и границами. Разберём твою ситуацию лично — первый разбор бесплатно ❤️</div>
+      <a href="https://t.me/ТВОЙ_ТЕЛЕГРАМ" class="cta-btn">Записаться на бесплатный разбор</a>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">Пройти тест заново</button>
+    <div class="share-hint">Поделись с подругой — пусть тоже проверит ❤️</div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {text:'Когда ты думаешь о деньгах — что приходит первым?', cat:'Мышление', opts:[
+    {text:'Тревога — их всегда не хватает', s:{m:0,a:0,f:2}},
+    {text:'Ищу где взять — работу, подработку', s:{m:1,a:1,f:1}},
+    {text:'Думаю как создать — что продать, кому помочь', s:{m:2,a:2,f:0}},
+    {text:'Планирую — считаю, распределяю', s:{m:2,a:1,f:0}},
+  ]},
+  {text:'Когда тебе нужны деньги прямо сейчас — что ты делаешь?', cat:'Действия', opts:[
+    {text:'Жду — может что-то само появится', s:{m:0,a:0,f:2}},
+    {text:'Ищу работу или подработку', s:{m:1,a:1,f:1}},
+    {text:'Думаю кому могу быть полезна прямо сейчас', s:{m:2,a:2,f:0}},
+    {text:'Пишу всем кто может купить или порекомендовать', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Как ты относишься к называнию своей цены?', cat:'Страхи', opts:[
+    {text:'Боюсь — вдруг скажут что дорого', s:{m:0,a:0,f:2}},
+    {text:'Занижаю — лишь бы купили', s:{m:1,a:0,f:2}},
+    {text:'Называю и жду реакции', s:{m:1,a:1,f:1}},
+    {text:'Называю уверенно — знаю ценность своей работы', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Когда тебе отказывают — что происходит внутри?', cat:'Страхи', opts:[
+    {text:'Опускаются руки — значит не моё', s:{m:0,a:0,f:2}},
+    {text:'Обидно — начинаю сомневаться в себе', s:{m:0,a:0,f:2}},
+    {text:'Расстраиваюсь но продолжаю', s:{m:1,a:1,f:1}},
+    {text:'Анализирую — что можно улучшить', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Как ты думаешь о богатых людях?', cat:'Мышление', opts:[
+    {text:'Им просто повезло или они нечестные', s:{m:0,a:0,f:1}},
+    {text:'У них были возможности которых у меня нет', s:{m:0,a:0,f:1}},
+    {text:'Они много работают — я тоже могу', s:{m:1,a:1,f:0}},
+    {text:'Они думают иначе — и я учусь думать так же', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Сколько новых людей ты контактируешь насчёт своих услуг в неделю?', cat:'Действия', opts:[
+    {text:'Никого — жду сами придут', s:{m:0,a:0,f:2}},
+    {text:'1-2 человека', s:{m:1,a:1,f:1}},
+    {text:'5-10 человек', s:{m:2,a:2,f:0}},
+    {text:'Больше 10', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Когда у тебя есть идея заработать — что происходит?', cat:'Действия', opts:[
+    {text:'Думаю о ней но не делаю', s:{m:1,a:0,f:2}},
+    {text:'Начинаю и бросаю на полпути', s:{m:1,a:1,f:1}},
+    {text:'Делаю но медленно и не всегда довожу до конца', s:{m:1,a:1,f:1}},
+    {text:'Делаю сразу — пока горит', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Как ты себя чувствуешь когда просишь денег или помощи?', cat:'Страхи', opts:[
+    {text:'Стыдно — я должна сама справляться', s:{m:0,a:0,f:2}},
+    {text:'Неприятно но иногда прошу', s:{m:1,a:1,f:1}},
+    {text:'Нормально — все иногда просят о помощи', s:{m:2,a:1,f:0}},
+    {text:'Воспринимаю как инструмент — займу и верну', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Что происходит когда ты думаешь о большом доходе — например 200к в месяц?', cat:'Мышление', opts:[
+    {text:'Это нереально для меня', s:{m:0,a:0,f:2}},
+    {text:'Хотелось бы но не знаю как', s:{m:1,a:0,f:1}},
+    {text:'Реально — но нужно время', s:{m:1,a:1,f:0}},
+    {text:'Уже думаю что нужно сделать для этого', s:{m:2,a:2,f:0}},
+  ]},
+  {text:'Как давно ты предприняла конкретное действие для заработка?', cat:'Действия', opts:[
+    {text:'Давно — больше недели назад', s:{m:0,a:0,f:1}},
+    {text:'Несколько дней назад', s:{m:1,a:1,f:0}},
+    {text:'Сегодня', s:{m:2,a:2,f:0}},
+    {text:'Делаю каждый день', s:{m:2,a:2,f:0}},
+  ]},
+];
+
+let current = 0;
+let totals = {m:0, a:0, f:0};
+
+function render() {
+  const q = questions[current];
+  document.getElementById('q-num').textContent = current + 1;
+  document.getElementById('q-cat').textContent = q.cat;
+  document.getElementById('progress-bar').style.width = ((current+1)/10*100) + '%';
+  document.getElementById('question-text').textContent = q.text;
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = o.text;
+    btn.onclick = () => {
+      totals.m += o.s.m;
+      totals.a += o.s.a;
+      totals.f += o.s.f;
+      current++;
+      if (current < 10) render();
+      else showResult();
+    };
+    opts.appendChild(btn);
+  });
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  const mp = Math.round(totals.m/20*100);
+  const ap = Math.round(totals.a/20*100);
+  const fp = Math.round(totals.f/20*100);
+
+  document.getElementById('score-mind').textContent = mp + '%';
+  document.getElementById('score-action').textContent = ap + '%';
+  document.getElementById('score-fear').textContent = fp + '%';
+
+  let title, sub, label, bg;
+
+  if (ap < 30) {
+    label = 'ГЛАВНЫЙ БЛОК: БЕЗДЕЙСТВИЕ';
+    title = 'Ты знаешь — но не делаешь';
+    sub = 'Идей много. Понимания много. Действий — почти нет. Это не лень. Это страх и привычка ждать когда само получится. Деньги приходят только через действия — не через знания и мечты.';
+    bg = '#fce7f3';
+  } else if (fp > 60) {
+    label = 'ГЛАВНЫЙ БЛОК: СТРАХИ';
+    title = 'Страх мешает больше чем незнание';
+    sub = 'Ты умеешь делать и знаешь что делать. Но страх отказа, осуждения и называния цены тормозит на каждом шагу. Один шаг сделанный со страхом — лучше тысячи шагов в голове.';
+    bg = '#fef3c7';
+  } else if (mp < 40) {
+    label = 'ГЛАВНЫЙ БЛОК: МЫШЛЕНИЕ';
+    title = 'Мозг настроен на выживание а не на рост';
+    sub = 'Ты ищешь работу — а не возможности. Ищешь стабильность — а не рост. Это мышление которое незаметно управляет каждым решением. Хорошая новость — мышление меняется через действия.';
+    bg = '#ede9fe';
+  } else {
+    label = 'ХОРОШАЯ БАЗА — НУЖНА СИСТЕМА';
+    title = 'Мышление есть — нужна регулярность';
+    sub = 'Ты думаешь правильно и умеешь действовать. Главная проблема — непоследовательность. Делаешь когда настроение есть. Деньги любят систему — не вдохновение.';
+    bg = '#d1fae5';
+  }
+
+  const rh = document.getElementById('result-header');
+  rh.style.background = bg;
+  document.getElementById('result-label').textContent = label;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-sub').textContent = sub;
+
+  const blocks = [];
+  if (ap < 40) blocks.push('Откладываешь действия — ждёшь идеального момента');
+  if (fp > 50) blocks.push('Боишься называть цену и получать отказы');
+  if (mp < 40) blocks.push('Ищешь работу а не возможности — это разные вещи');
+  if (totals.a < 8) blocks.push('Мало контактов с новыми людьми каждый день');
+  if (blocks.length === 0) blocks.push('Нет критичных блоков — нужна только система и регулярность');
+
+  const bl = document.getElementById('blocks-list');
+  blocks.forEach(b => {
+    bl.innerHTML += '<div class="info-item"><div class="info-dot"></div><div class="info-text">' + b + '</div></div>';
+  });
+
+  const acts = ap < 30
+    ? ['Прямо сейчас напиши 3 людям у кого есть проблема которую ты решаешь', 'Сделай одно действие для заработка сегодня — не завтра', 'Установи правило: каждый день писать 5 людям']
+    : fp > 60
+    ? ['Назови свою цену следующему кто напишет — без оправданий', 'Когда откажут — не останавливайся. Следующий скажет да', 'Напиши список: чем я ценна и за что мне платят']
+    : mp < 40
+    ? ['Перестань искать работу — начни искать кому ты можешь помочь', 'Спроси себя: какую проблему я решаю и кто за это заплатит?', 'Каждое утро спрашивай: как я могу заработать сегодня — не где найти работу']
+    : ['Создай систему: каждый день три обязательных действия', 'Не жди вдохновения — делай по плану', 'Отслеживай результат каждый день — что сработало'];
+
+  const al = document.getElementById('actions-list');
+  acts.forEach((a, i) => {
+    al.innerHTML += '<div class="action-item"><span class="action-num">' + (i+1) + '.</span><span class="action-text">' + a + '</span></div>';
+  });
+
+  window.scrollTo(0, 0);
+}
+
+function restart() {
+  current = 0;
+  totals = {m:0, a:0, f:0};
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  document.getElementById('blocks-list').innerHTML = '';
+  document.getElementById('actions-list').innerHTML = '';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
