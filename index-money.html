@@ -211,7 +211,7 @@ function result(n){cur=n;var d=D[n-1],s=dd(n),sc=scores(n),R=$("result");R.inner
   function chL(){cl.innerHTML="";LV.forEach(function(v){var x=h("button","chip"+(ex.lvl===v[0]?" on":""),v[1]);x.onclick=function(){ex.lvl=v[0];save();chL();upd()};cl.appendChild(x)})}
   function upd(){var e=d.EXP[ex.theme];bl.textContent="Убеждение, которое мы проверяем: «"+e.b+"»";et.textContent=ex.lvl?e.l[+ex.lvl-1]:"Выбери уровень, и здесь появится эксперимент."}
   c5.appendChild(h("p","mute","Тема"));c5.appendChild(ct);c5.appendChild(bl);
-  fld("Что, как я думаю, произойдёт, если я это сделаю?","pred");fld("Что я чувствую до: от 0 до 10 и где в теле?","pre");
+  fld("Что, как мне кажется, произойдёт, если я перестану оценивать свою ценность через количество денег?","pred");fld("Что я чувствую до: от 0 до 10 и где в теле?","pre");
   c5.appendChild(h("p","mute","Уровень"));c5.appendChild(cl);c5.appendChild(et);
   fld("Что произошло на самом деле?","real");fld("Что я чувствую после: от 0 до 10?","post");fld("Что я поняла про свою реакцию?","learn");
   c5.appendChild(h("p","mute","Денежный результат, если он есть, запиши на табло ниже."));
